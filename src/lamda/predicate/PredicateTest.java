@@ -17,12 +17,13 @@ public class PredicateTest {
                 new Employee("李四",4500.00,45),
                 new Employee("lisi",3500.00,35)
         );
-        checkSalary(employees,(em)->em.getSalary()>2600);
+        checkSalary(employees,(em)-> em.getSalary()>2600,(employee -> employee.getAge()>40));
     }
-    public static void checkSalary(List<Employee> list, Predicate<Employee> p){
+    public static void checkSalary(List<Employee> list, Predicate<Employee> p,Predicate<Employee> p2){
+        Predicate<Employee> andCondition = p.and(p2);
         for(Employee e:list){
             //判断 e  是否满足 :e传给em      em->em.getSalary()>2600
-            if(p.test(e)){
+            if(andCondition.test(e)){
                 System.out.println(e.getName());
             }
         }
